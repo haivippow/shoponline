@@ -49,6 +49,7 @@ class Product extends Component {
       </div>
     );
   }
+
   componentDidMount() { 
     const params = this.props.params;
     if (params.cid) {

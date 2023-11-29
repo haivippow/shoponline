@@ -1,61 +1,104 @@
+/* Menu.module.css */
+
+.searchContainer {
+  display: flex;
+ /* Stack items vertically */
+}
+
 .borderBottom {
-    border-bottom: 1px solid black;
-    padding: 10px 0px 10px 0px;
+  border-bottom: 1px solid black;
+  padding: 10px 0px 10px 0px;
 
+}
+
+a {
+  text-decoration: none
+}
+
+.floatLeft {
+  float: left;
+}
+
+.floatRight {
+  float: right;
+}
+
+.float-clear {
+  clear: both;
+}
+
+.ulMenu {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.menu {
+  display: inline;
+  margin-right: 20px;
+  text-transform: uppercase;
+}
+
+.keyword,
+.searchButton {
+  padding: 5px;
+}
+
+.toggleButton {
+  display: none; /* Hide the toggle button by default */
+  background-color: #f1f1f1;
+  border: none;
+  color: black;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Show menu class to toggle the visibility of the categories */
+.showMenu {
+  display: block;
+}
+
+@media only screen and (max-width: 768px) {
+  /* Show the toggle button and hide the categories on small screens */
+  .toggleButton {
+    display: block;
   }
-  .floatLeft {
-    float: left;
-  
-  }
- .floatRight {
-    float: right;
-  }
-  div.float-clear {
-    clear: both;
-  }
+
   .ulMenu {
-    margin: 0px;
-    padding-left: 10px;
-  
-  }
-  .liMenu {
-    display: inline;
-    
-    margin-right:10px;
-    text-transform: uppercase;
-  
-  }
-  
-  form.search {
-    margin: 0px;
-  
-  }
-  
-  input.keyword {
-    width: 180px;
-  }
-  .floatRight {
-    float: right;
+    display: none; /* Hide the menu items by default on small screens */
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    z-index: 1;
   }
 
-
-
-  
-  .keyword {
-    padding: 4px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+  /* Style the menu items when the menu is shown */
+  .ulMenu.showMenu {
+    display: block;
   }
-  
-  .searchButton {
-    padding: 4px 15px;
-    background-color: #4CAF50;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
+
+  .ulMenu li {
+    padding: 12px 16px;
+    display: block;
+    text-decoration: none;
+    color: #333;
+  }
+
+  /* Style the hamburger icon button */
+  .toggleButton span {
+    font-size: 30px;
     cursor: pointer;
   }
-  
-  .searchButton:hover {
-    background-color: #45a049;
+
+  .searchContainer {
+    flex-direction: row; /* Arrange items side by side for larger screens */
+    gap: 10px; /* Add some space between the search bar and button */
+    align-items: center; /* Align items vertically in the center */
+    padding-top: 15px;
   }
+  .keyword{
+    width: 100px;
+  }
+}

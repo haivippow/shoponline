@@ -50,7 +50,7 @@ class Inform extends Component {
         </div>
              
         <div className='float-left' style={{ marginLeft: '5px' }}>
-        <Link to='/mycart' style={{ textDecoration: 'none' ,}}> Giỏ Hàng</Link> có <b>{this.context.mycart.length} </b> sản phẩm
+        <Link to='/mycart' style={{ textDecoration: 'none' ,}}> Giỏ Hàng</Link> có <b>{this.context.mycart.length} </b> SP
         </div>
       
      
@@ -76,7 +76,7 @@ class Inform extends Component {
         </div>
 
         <div className="float-right">
-      <div style={{ display: "inline" }} class="form-switch">
+      <div class="form-switch">
         <input class="form-check-input" type="checkbox" onChange={(e) => this.ckbChangeMode(e)} />&nbsp; Light / Dark mode
       </div>
       </div>

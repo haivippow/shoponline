@@ -175,7 +175,51 @@ input.keyword {
   max-width: 100px; /* Adjust the width as needed */
   margin-right: 10px; /* Adjust the margin as needed */
 }
+.form-switch{
+  display: inline;
+
+}
+
+@media only screen and (max-width: 768px) {
+  .body-customer {
+    width: 80%;
+    height: fit-content;
+    margin: 0px auto;
+  }
+  .form-switch{
+    display: none;
+  }
+}
+
+
+
 
 
 /* menu.css */
+
+
+
+.footer{
+  width: 100%;
+  height: auto;
+  background-color: black;
+  display: flex;
+  color: aliceblue;
+
+}
+.footer-1 {
+  width: 50%;
+  height: 100%;
+  margin-top: 15px;
+  border-right: 1px solid whitesmoke;
+
+}
+.footer-2 {
+  margin-top: 50px;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
