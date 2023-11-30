@@ -4,6 +4,7 @@ import withRouter from '../../utils/withRouter';
 import { toast } from 'react-toastify';
 import MyContext from '../../contexts/MyContext';
 import style from './Signup.module.css'
+
 class Signup extends Component {
   static contextType = MyContext; // using this.context to access global state
   constructor(props) {

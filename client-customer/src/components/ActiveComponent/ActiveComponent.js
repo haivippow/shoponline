@@ -2,6 +2,8 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import { toast } from 'react-toastify';
 import MyContext from '../../contexts/MyContext';
+import style from '../ActiveComponent/Active.module.css'
+import withRouter from '../../utils/withRouter';
 
 class Active extends Component {
   static contextType = MyContext; // using this.context to access global state
@@ -14,28 +16,19 @@ class Active extends Component {
   }
   render() {
     return (
-      <div className="align-center">
-        <h2 className="text-center">Xác Thực Tài Khoản</h2>
-        <h3 className="text-center">Vui Lòng Kiểm Tra Email Để Lấy ID và Token</h3>
+      <div className={style.container}>
+      <div className={style.formContainer}>
+        <h2 className={style.title}>Xác Thực Tài Khoản</h2>
+        <h3 className={style.title}>Vui Lòng Kiểm Tra Email Để Lấy ID và Token</h3>
         <form>
-          <table className="align-center">
-            <tbody>
-              <tr>
-                <td>ID</td>
-                <td><input type="text" value={this.state.txtID} onChange={(e) => { this.setState({ txtID: e.target.value }) }} /></td>
-              </tr>
-              <tr>
-                <td>Token</td>
-                <td><input type="text" value={this.state.txtToken} onChange={(e) => { this.setState({ txtToken: e.target.value }) }} /></td>
-              </tr>
-              <tr>
-                <td></td>
-                <td><input type="submit" value="Xác Thực" onClick={(e) => this.btnActiveClick(e)} /></td>
-              </tr>
-            </tbody>
-          </table>
+          <input className={style.inputField} type="text" placeholder="Tài Khoản" value={this.state.txtID} onChange={(e) => { this.setState({ txtID: e.target.value }) }} />
+          <input className={style.inputField} type="password" placeholder="Mật Khẩu" value={this.state.txtToken} onChange={(e) => { this.setState({ txtToken: e.target.value }) }} />
+          <button className={style.submitButton} type="submit" onClick={(e) => this.btnActiveClick(e)}>Xác Thực</button>
         </form>
+       
       </div>
+    </div>
+
     );
   }
   // event-handlers
@@ -73,4 +66,4 @@ class Active extends Component {
     }
   }
 }
-export default Active;
+export default withRouter(Active);

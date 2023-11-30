@@ -1,9 +1,5 @@
 /* Menu.module.css */
 
-.searchContainer {
-  display: flex;
- /* Stack items vertically */
-}
 
 .borderBottom {
   border-bottom: 1px solid black;
@@ -37,12 +33,32 @@ a {
   display: inline;
   margin-right: 20px;
   text-transform: uppercase;
+  text-decoration: none;
+}
+.keyword{
+  margin-right: 5px;
+}
+.searchContainer {
+  display: flex;
+ /* Stack items vertically */
+ height: 30px;
 }
 
-.keyword,
+
+
 .searchButton {
-  padding: 5px;
+  background-color: #4caf50;
+  color: white;
+  cursor: pointer;
+  width: 100%;
+  height: auto;
+  border: none;
+  border-radius: 4px;
 }
+.searchButton:hover{
+  background-color: #208f23;
+}
+
 
 .toggleButton {
   display: none; /* Hide the toggle button by default */
@@ -88,7 +104,7 @@ a {
 
   /* Style the hamburger icon button */
   .toggleButton span {
-    font-size: 30px;
+    font-size: 20px;
     cursor: pointer;
   }
 
@@ -96,7 +112,7 @@ a {
     flex-direction: row; /* Arrange items side by side for larger screens */
     gap: 10px; /* Add some space between the search bar and button */
     align-items: center; /* Align items vertically in the center */
-    padding-top: 15px;
+    padding-top: 25px;
   }
   .keyword{
     width: 100px;

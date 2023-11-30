@@ -63,7 +63,6 @@ input.keyword {
 
 
 
-
 /* Style for notifications overlay */
 .notifications-overlay {
   position: fixed;
@@ -179,6 +178,7 @@ input.keyword {
   display: inline;
 
 }
+
 
 @media only screen and (max-width: 768px) {
   .body-customer {

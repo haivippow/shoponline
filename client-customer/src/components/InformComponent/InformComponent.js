@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import MyContext from '../../contexts/MyContext';
-import style from './Inform.module.css'
+import anh1 from '../../assets/images/logo.png';
 
 class Inform extends Component {
   static contextType = MyContext; // using this.context to access global state
@@ -23,7 +23,7 @@ class Inform extends Component {
         
         <div className="logo-container">
           <Link to='/'>
-            <img src="/logo192.png" alt="Home" className="logo-image" />
+            <img src={anh1} alt="Home" className="logo-image"  />
           </Link>
         </div>
 

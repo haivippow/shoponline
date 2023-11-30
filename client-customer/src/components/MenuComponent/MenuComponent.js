@@ -38,9 +38,10 @@ class Menu extends Component {
           <button className={style.toggleButton} onClick={this.toggleMenu}>
             <span>&#9776;</span> {/* Hamburger icon */}
           </button>
-          <ul className={`${style.ulMenu} ${this.state.showMenu ? style.showMenu : ''}`}>
-            DANH MỤC SẢN PHẨM {this.renderCategories()}
+          <ul className={`${style.ulMenu} ${this.state.showMenu ? style.showMenu : ''}`} >
+            DANH MỤC SẢN PHẨM {' '}{this.renderCategories()}
           </ul>
+
         </div>
         <div className={style.floatRight}>
           <div className={style.searchContainer}>
