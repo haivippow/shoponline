@@ -20,10 +20,15 @@ const CustomerDAO = {
     return result;
   },
   async active(_id, token, active) {
-    const query = { _id: _id, token: token };
-    const newvalues = { active: active };
-    const result = await Models.Customer.findOneAndUpdate(query, newvalues, { new: true });
-    return result;
+      try{
+        const query = { _id: _id, token: token };
+        const newvalues = { active: active };
+        const result = await Models.Customer.findOneAndUpdate(query, newvalues, { new: true });
+        return result;
+      }catch (error) {
+        console.log(error)
+        return  { success: false, message: 'ID Không Tồn Tại' };
+      }
   },
   async selectByUsernameAndPassword(username, password) {
     const query = { username: username, password: password };
@@ -45,9 +50,25 @@ const CustomerDAO = {
     const customers = await Models.Customer.find(query).exec();
     return customers;
   },
-  async selectByID(_id) {
-    const customer = await Models.Customer.findById(_id).exec();
+  async selectID(_id) {
+    try{
+      const query ={_id:_id}
+    const customer = await Models.Customer.findOne(query).exec();
     return customer;
+    }catch{
+      return null;
+    }
+  
+  },
+
+  async selectByID(_id) {
+    try{
+      const customer = await Models.Customer.findById(_id).exec();
+      return customer;
+    }catch{
+      return null;
+    }
+  
   },
 
   async updateResetToken(customerId, token) {

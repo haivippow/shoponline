@@ -13,6 +13,17 @@ const OrderDAO = {
     const orders = await Models.Order.find(query).exec();
     return orders;
   },
+
+
+  async selectByID(_id) {
+    try{
+      const customer = await Models.Order.findById(_id).exec();
+      return customer;
+    }catch{
+      return null;
+    }
+  
+  },
   async calculateApprovedRevenue(status) {
     const query = {'status':status};
     const orders = await Models.Order.find(query).exec();
@@ -35,6 +46,11 @@ const OrderDAO = {
   },
   async update(_id, newStatus) {
     const newvalues = { status: newStatus };
+    const result = await Models.Order.findByIdAndUpdate(_id, newvalues, { new: true });
+    return result;
+  },
+  async updateAddress(_id, addressUpdate) {
+    const newvalues = { customer: addressUpdate };
     const result = await Models.Order.findByIdAndUpdate(_id, newvalues, { new: true });
     return result;
   }

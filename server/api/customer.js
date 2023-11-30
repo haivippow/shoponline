@@ -70,11 +70,21 @@ router.post('/signup', async function (req, res) {
     }
   }
 });
+
+router.get('/checkidactive', async function (req, res) {
+  const _id = req.body.id;
+  const checkid = await CustomerDAO.selectByID(_id);
+  res.json(checkid);
+
+
+});
+
 router.post('/active', async function (req, res) {
   const _id = req.body.id;
   const token = req.body.token;
-  const result = await CustomerDAO.active(_id, token, 1);
-  res.json(result);
+    const result = await CustomerDAO.active(_id, token, 1);
+    res.json(result);
+
 });
 router.post('/login', async function (req, res) {
   const username = req.body.username;
@@ -167,6 +177,32 @@ router.get('/orders/customer/:cid', JwtUtil.checkToken, async function (req, res
   const _cid = req.params.cid;
   const orders = await OrderDAO.selectByCustID(_cid);
   res.json(orders);
+});
+router.get('/orders/:cid', JwtUtil.checkToken, async function (req, res) {
+  const _cid = req.params.cid;
+  const orders = await OrderDAO.selectByID(_cid);
+  res.json(orders);
+});
+
+router.get('/getusertoken', JwtUtil.checkToken, async function(req, res) {
+  const username = req.username;
+  const id = req.id;
+  const customers = await CustomerDAO.selectByID(id);
+  res.json(customers);
+});
+
+router.put('/orders/status/:id', JwtUtil.checkToken, async function(req, res) {
+  const _id = req.params.id;
+  const newStatus = req.body.status;
+  const result = await OrderDAO.update(_id, newStatus);
+  res.json(result);
+});
+
+router.put('/orders/address/:id', JwtUtil.checkToken, async function(req, res) {
+  const _id = req.params.id;
+  const customer = req.body.customer;
+  const result = await OrderDAO.updateAddress(_id, customer);
+  res.json(result);
 });
 
 // --------------------------

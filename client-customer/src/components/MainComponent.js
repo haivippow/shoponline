@@ -19,6 +19,7 @@ import ResetPW from './ResetPasswordComponent/ResetPasswordComponent';
 import MyProductFavorite from './MyProductFavoriteComponent/MyProductFavoriteComponent';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import AddressUpdate from './AddressComponent/AddressUpdateComponent';
 
 class Main extends Component {
   render() {
@@ -39,6 +40,7 @@ class Main extends Component {
           <Route path='/myprofile' element={<Myprofile />} />
           <Route path='/mycart' element={<Mycart />} />
           <Route path='/address' element={<Address />} />
+          <Route path='/addressupdate' element={<AddressUpdate />} />
           <Route path='/myorders' element={<Myorders />} />
           <Route path='/gmap' element={<Gmap />} />
           <Route path='/contactinfo' element={<ContactInfo />} />

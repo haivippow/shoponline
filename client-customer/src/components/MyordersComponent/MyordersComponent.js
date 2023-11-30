@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { Navigate } from 'react-router-dom';
 import MyContext from '../../contexts/MyContext';
 import style from './Myorders.module.css'
+import { toast } from 'react-toastify';
+import withRouter from '../../utils/withRouter';
 
 class Myorders extends Component {
   static contextType = MyContext; // using this.context to access global state
@@ -38,6 +40,17 @@ class Myorders extends Component {
           <td>{Straddress}</td>
           <td>{(item.total).toLocaleString('vi-VN')} VNĐ</td>
           <td>{item.status}</td>
+          <td>
+          {item.status !== "HUỶ ĐƠN" && item.status !== "CANCELED" && item.status !== "APPROVED" ? (
+            <>
+              <button className={style.link} onClick={() => this.lnkHUYClick(item._id)}>Huỷ Đơn Hàng</button>
+              <button className={style.link1} onClick={() => this.apiGetOrdersByID(item._id)}>Cập Nhập Địa Chỉ</button>
+            </>
+          ) : null}
+        </td>
+
+
+
         </tr>
       );
     });
@@ -80,7 +93,8 @@ class Myorders extends Component {
                   <th>Số điện thoại</th>
                   <th>Địa Chỉ</th>
                   <th>Tổng</th>
-                  <th>Trạng Thái</th>
+                  <th>Trạng Thái</th>  
+                  <th>Chức Năng</th>
                 </tr>
                 {orders}
               </tbody>
@@ -114,7 +128,23 @@ class Myorders extends Component {
     );
   }
 
-
+  lnkHUYClick(id) {
+      this.apiPutOrderStatus(id, 'HUỶ ĐƠN');
+  }
+  // apis
+  apiPutOrderStatus(id, status) {
+    const body = { status: status };
+    const config = { headers: { 'x-access-token': this.context.token } };
+    axios.put('/api/customer/orders/status/' + id, body, config).then((res) => {
+      const result = res.data;
+      if (result) {
+      this.apiGetOrdersByCustID(id);
+        toast.success(status+" Thành Công")
+      } else {
+        toast.error(status+" Không Thành Công")
+      }
+    });
+  }
   GetUserToken(){
     const token_user = localStorage.getItem('token_user');
     const config = { headers: { 'x-access-token': token_user } };
@@ -130,6 +160,19 @@ class Myorders extends Component {
           this.apiGetOrdersByCustID(cid);
         }
       }
+    });
+  }
+  apiGetOrdersByID(cid) {
+    const config = { headers: { 'x-access-token': this.context.token } };
+    axios.get('/api/customer/orders/' + cid, config).then((res) => {
+      const result = res.data;
+     if(result){
+      console.log(result);
+      this.context.setOrder(result)
+     
+      this.props.navigate('/addressupdate');
+     }
+   
     });
   }
   
@@ -150,4 +193,4 @@ class Myorders extends Component {
     });
   }
 }
-export default Myorders;
+export default withRouter(Myorders);

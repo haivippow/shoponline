@@ -42,14 +42,19 @@ class Active extends Component {
       toast.info("Vui Lòng Nhập Đầy Đủ Thông Tin");
     }
   }
+ 
   // apis
   apiActive(id, token) {
     const body = { id: id, token: token };
     axios.post('/api/customer/active', body).then((res) => {
       const result = res.data;
       if (result) {
-        toast.success("ACTIVE Thành Công")
-        this.props.navigate('/login');
+        if(result.success==false)
+        toast.error("ID Không Tồn Tại")
+        else{
+          toast.success("ACTIVE Thành Công")
+          this.props.navigate('/login');
+        }
       } else {
         toast.error("ACTIVE Thất Bại")
       }

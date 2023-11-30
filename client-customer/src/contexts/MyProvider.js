@@ -9,12 +9,17 @@ class MyProvider extends Component {
       token: '',
       customer: null,
       mycart: [],
+      order: [],
       // functions
       setToken: this.setToken,
       setCustomer: this.setCustomer,
       setMycart: this.setMycart,
+      setOrder: this.setOrder,
 
     };
+  }
+  setOrder = (value) => {
+    this.setState({ order: value });
   }
   setMycart = (value) => {
     this.setState({ mycart: value });
