@@ -138,7 +138,7 @@ class Myorders extends Component {
     axios.put('/api/customer/orders/status/' + id, body, config).then((res) => {
       const result = res.data;
       if (result) {
-      this.apiGetOrdersByCustID(id);
+      this.apiGetOrdersByCustID(this.context.customer._id);
         toast.success(status+" Thành Công")
       } else {
         toast.error(status+" Không Thành Công")
