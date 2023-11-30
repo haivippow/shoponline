@@ -4,6 +4,7 @@ import { Navigate } from 'react-router-dom';
 import MyContext from '../../contexts/MyContext';
 import withRouter from '../../utils/withRouter';
 import { toast } from 'react-toastify';
+import styles from '../MyProductFavoriteComponent/Favorite.module.css'
 
 class MyProductFavorite extends Component {
   static contextType = MyContext; // using this.context to access global state
@@ -30,36 +31,39 @@ class MyProductFavorite extends Component {
             <img src={`data:image/jpg;base64,${items.product.image}`} width="150px" height="150px" alt="" />
           </td>
           <td>
-            <button onClick={() => this.apiViewDetails(items.product._id)}>Xem chi tiết</button>
-            <button onClick={() => this.apiDeleteProductFavorite(items._id)}>Xoá</button>
+            <button className={styles.link} onClick={() => this.apiViewDetails(items.product._id)}>Xem chi tiết</button>
+            <button className={styles.link1} onClick={() => this.apiDeleteProductFavorite(items._id)}>Xoá</button>
          
           </td>
         </tr>
       </React.Fragment>
     ));
 
+
     return (
-      <div>
-        <div className="align-center">
-          <h2 className="text-center">Sản Phẩm Yêu Thích</h2>
-          <table className="datatable" border="1">
+      <div className={styles.container}>
+        <div className={styles.tableContainer}>
+          <h2 className={styles.title}>ITEM LIST</h2>
+          <table className={styles.datatable}>
             <tbody>
-              <tr className="datatable">
-                <th>STT</th>
-                {/* <th>ID</th> */}
+              <tr className={styles.datatable}>
+              <th>STT</th>
                 <th>Ngày Thêm</th>
                 <th>Tên</th>
                 <th>Giá</th>
                 <th>Ảnh</th>
-                <th>Chức năng</th>
+                <th>Chức Năng</th>
               </tr>
               {productfavorites}
+            
             </tbody>
           </table>
         </div>
       </div>
     );
   }
+
+  
 
   
   componentDidMount() {

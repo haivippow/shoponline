@@ -31,7 +31,7 @@ class Size extends Component {
           <tbody>
             <tr className={styles.datatable}>
               <th>ID</th>
-              <th>Nội Dung Thông Báo</th>
+              <th>SIZE</th>
 
             </tr>
             {cates}

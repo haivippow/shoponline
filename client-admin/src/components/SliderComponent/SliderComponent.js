@@ -31,7 +31,7 @@ class Slider extends Component {
           <tbody>
             <tr className={styles.datatable}>
               <th>ID</th>
-              <th>Nội Dung Thông Báo</th>
+              <th>Ảnh</th>
 
             </tr>
             {cates}
