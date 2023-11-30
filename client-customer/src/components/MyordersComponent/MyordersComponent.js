@@ -26,33 +26,47 @@ class Myorders extends Component {
         item.customer.address.quan +
         ' ' +
         item.customer.address.thanhpho;
-      return (
-        <tr
-          key={item._id}
-          className={style.datatable}
-          onClick={() => this.trItemClick(item)}
-        >
-          <td>{index + 1}</td>
-          <td>{item._id}</td>
-          <td>{new Date(item.cdate).toLocaleString()}</td>
-          <td>{item.customer.name}</td>
-          <td>{item.customer.phone}</td>
-          <td>{Straddress}</td>
-          <td>{(item.total).toLocaleString('vi-VN')} VNĐ</td>
-          <td>{item.status}</td>
-          <td>
-          {item.status !== "HUỶ ĐƠN" && item.status !== "CANCELED" && item.status !== "APPROVED" ? (
-            <>
-              <button className={style.link} onClick={() => this.lnkHUYClick(item._id)}>Huỷ Đơn Hàng</button>
-              <button className={style.link1} onClick={() => this.apiGetOrdersByID(item._id)}>Cập Nhập Địa Chỉ</button>
-            </>
-          ) : null}
-        </td>
-
-
-
-        </tr>
-      );
+        return (
+          <tr
+            key={item._id}
+            className={style.datatable}
+            onClick={() => this.trItemClick(item)}
+          >
+            <td>{index + 1}</td>
+            <td>{item._id}</td>
+            <td>{new Date(item.cdate).toLocaleString()}</td>
+            <td>{item.customer.name}</td>
+            <td>{item.customer.phone}</td>
+            <td>{Straddress}</td>
+            <td>{(item.total).toLocaleString('vi-VN')} VNĐ</td>
+            <td>{item.status}</td>
+            <td>
+              {item.status !== "HUỶ ĐƠN" && item.status !== "CANCELED" && item.status !== "APPROVED" ? (
+                <>
+                  <button
+                    className={style.link}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      this.lnkHUYClick(item._id);
+                    }}
+                  >
+                    Huỷ Đơn Hàng
+                  </button>
+                  <button
+                    className={style.link1}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      this.apiGetOrdersByID(item._id);
+                    }}
+                  >
+                    Cập Nhập Địa Chỉ
+                  </button>
+                </>
+              ) : null}
+            </td>
+          </tr>
+        );
+        
     });
 
     if (this.state.order) {
@@ -130,6 +144,7 @@ class Myorders extends Component {
 
   lnkHUYClick(id) {
       this.apiPutOrderStatus(id, 'HUỶ ĐƠN');
+      
   }
   // apis
   apiPutOrderStatus(id, status) {
@@ -138,7 +153,7 @@ class Myorders extends Component {
     axios.put('/api/customer/orders/status/' + id, body, config).then((res) => {
       const result = res.data;
       if (result) {
-      this.apiGetOrdersByCustID(id);
+      this.apiGetOrdersByCustID(this.context.customer._id);
         toast.success(status+" Thành Công")
       } else {
         toast.error(status+" Không Thành Công")

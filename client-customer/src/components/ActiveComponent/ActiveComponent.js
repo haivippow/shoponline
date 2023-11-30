@@ -49,7 +49,7 @@ class Active extends Component {
     axios.post('/api/customer/active', body).then((res) => {
       const result = res.data;
       if (result) {
-        if(result.success==false)
+        if(result.success===false)
         toast.error("ID Không Tồn Tại")
         else{
           toast.success("ACTIVE Thành Công")
