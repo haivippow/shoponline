@@ -18,14 +18,20 @@ class Product extends Component {
   render() {
     const prods = this.state.products.map((item) => {
       return (
-          <div key={item._id} className={styles.productContainer}>
+        <div key={item._id} className={styles.productContainer}>
           <figure className={styles.figure}>
             <Link to={'/product/'+item._id}>
               <img src={'data:image/jpg;base64,'+item.image} alt="" className={styles.image} />
             </Link>
             <figcaption className={styles.figcaption}>
               Tên Sản Phẩm: {item.name}<br />
-              Giá: {item.price.toLocaleString('vi-VN')} VNĐ
+              Giá: {item.price.toLocaleString('vi-VN')} VNĐ<br />
+              {item.sale > 0 && (
+                <>
+                <span className={styles.saleIcon}>SALE {item.sale} %</span><br />
+                <span>Giảm Còn: {item.price-((item.price)*(item.sale )/100).toLocaleString('vi-VN')} VNĐ</span>
+              </>
+            )}
             </figcaption>
           </figure>
         </div>

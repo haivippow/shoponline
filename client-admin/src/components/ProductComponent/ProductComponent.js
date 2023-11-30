@@ -24,6 +24,7 @@ class Product extends Component {
           <td>{item._id}</td>
           <td>{item.name}</td>
           <td>{(item.price).toLocaleString('vi-VN')} VNĐ</td>
+          <td>{(item.sale)} %</td>
           <td>{new Date(item.cdate).toLocaleString()}</td>
           <td>{item.category.name}</td>
           <td><img src={"data:image/jpg;base64," + item.image} width="100px" height="100px" alt="" /></td>
@@ -62,6 +63,7 @@ class Product extends Component {
                 <th>ID</th>
                 <th>Tên Sản Phẩm</th>
                 <th>Giá</th>
+                <th>SALE</th>
                 <th>Ngày Tạo</th>
                 <th>Danh Mục</th>
                 <th>Ảnh Chính</th>
@@ -69,7 +71,7 @@ class Product extends Component {
               </tr>
               {prods}
               <tr>
-                <td colSpan="7">{pagination}</td>
+                <td colSpan="8">{pagination}</td>
               </tr>
             </tbody>
           </table>

@@ -13,6 +13,7 @@ class ProductDetail extends Component {
       txtID: '',
       txtName: '',
       txtPrice: 0,
+      txtSale:0,
       cmbCategory: '',
       imgProduct: '',
       imgDetail: [],
@@ -43,6 +44,10 @@ class ProductDetail extends Component {
               <tr>
                 <td>Giá</td>
                 <td><input type="text" className={styles.inputField}  value={this.state.txtPrice} onChange={(e) => { this.setState({ txtPrice: e.target.value }) }} /></td>
+              </tr>
+              <tr>
+                <td>Giảm Giá</td>
+                <td><input type="text" className={styles.inputField}  value={this.state.txtSale} onChange={(e) => { this.setState({ txtSale: e.target.value }) }} /></td>
               </tr>
               <tr>
                 <td>Ảnh Chính</td>
@@ -111,6 +116,7 @@ class ProductDetail extends Component {
         txtID: this.props.item._id,
         txtName: this.props.item.name,
         txtPrice: this.props.item.price,
+        txtSale: this.props.item.sale,
         cmbCategory: this.props.item.category._id,
         imgProduct: 'data:image/jpg;base64,' + this.props.item.image,
         imgDetail: (this.props.item.imageDetail || []).map(image => 'data:image/jpg;base64,' + image),
@@ -154,12 +160,13 @@ class ProductDetail extends Component {
     const id = this.state.txtID;
     const name = this.state.txtName;
     const price = parseInt(this.state.txtPrice);
+    const sale = parseInt(this.state.txtSale);
     const category = this.state.cmbCategory;
     const image = this.state.imgProduct.replace(/^data:image\/[a-z]+;base64,/, ''); // remove "data:image/...;base64,"
     const imageDetail = this.state.imgDetail.map((img) => img.replace(/^data:image\/[a-z]+;base64,/, ''));
     if(imageDetail.length<5){
       if (id && name && price && category && image && imageDetail.length >0) {
-        const prod = { name: name, price: price, category: category, image: image, imageDetail: imageDetail};
+        const prod = { name: name, price: price,sale:sale, category: category, image: image, imageDetail: imageDetail};
         this.apiPutProduct(id, prod);
       } else {
         toast.info("Vui Lòng Nhập Đầy Đủ Thông Tin");
@@ -187,12 +194,14 @@ class ProductDetail extends Component {
     e.preventDefault();
     const name = this.state.txtName;
     const price = parseInt(this.state.txtPrice);
+    const sale = parseInt(this.state.txtSale);
     const category = this.state.cmbCategory;
+   
     const image = this.state.imgProduct.replace(/^data:image\/[a-z]+;base64,/, ''); // remove "data:image/...;base64,"
     const imageDetail = this.state.imgDetail.map((img) => img.replace(/^data:image\/[a-z]+;base64,/, ''));
     if(imageDetail.length<5){
       if (name && price && category && image && imageDetail.length > 0) {
-        const prod = { name: name, price: price, category: category, image: image, imageDetail: imageDetail };
+        const prod = { name: name, price: price,sale:sale, category: category, image: image, imageDetail: imageDetail };
         this.apiPostProduct(prod);
       } else {
         toast.info("Vui Lòng Nhập Đầy Đủ Thông Tin");

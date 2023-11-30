@@ -64,8 +64,18 @@ class ProductDetail extends Component {
           <td style={{fontSize:'20px'}}>Tên Sản Phẩm: {prod.name}</td>
         </tr>
         <tr>
-          <td style={{fontSize:'20px'}}>Giá: {(prod.price).toLocaleString('vi-VN')} VNĐ</td>
-        </tr>
+  <td style={{ fontSize: '20px' }}>
+    Giá: {prod.sale > 0
+      ? (prod.price - (prod.price * prod.sale) / 100).toLocaleString('vi-VN') + ' VNĐ'
+      : prod.price.toLocaleString('vi-VN') + ' VNĐ'
+    }
+  </td>
+</tr>
+
+
+
+
+       
         {prod.category.size === '1' && (
           <tr>
             <td style={{fontSize:'20px'}}>Chọn Size: 
@@ -181,19 +191,64 @@ class ProductDetail extends Component {
 
   btnAdd2CartClick = (e) => {
     e.preventDefault();
-    const product = this.state.product;
-    const quantity = parseInt(this.state.txtQuantity);
-  
-    if (product.category.size === '1') {
-      if(this.state.selectedSize){
+    const pro = this.state.product;
+    if(pro.sale>0){
+      const sp = {
+        _id: pro._id,
+        name: pro.name,
+        price: pro.price-((pro.price*pro.sale)/100),
+        image: pro.image,
+        imageDetail: pro.imageDetail,
+        cdate:pro.cdate,
+        category:{
+          _id:pro.category._id,
+          name:pro.category.name,
+          size:pro.category.size,
+        }
+      }
+      const quantity = parseInt(this.state.txtQuantity);
+    
+      if (sp.category.size === '1') {
+       
+        if(this.state.selectedSize){
+          if (quantity) {
+            const mycart = this.context.mycart;
+            const index = mycart.findIndex((x) => x.sp && x.sp._id === sp._id && x.size === this.state.selectedSize);
+
+      
+            if (index === -1) {
+              const newItem = { product: sp, quantity: quantity, size: this.state.selectedSize };
+              mycart.push(newItem);
+            } else {
+              mycart[index].quantity += quantity;
+            }
+      
+            this.context.setMycart(mycart);
+      
+            // Lưu giỏ hàng vào localStorage
+            localStorage.setItem('mycart', JSON.stringify(mycart));
+            
+            // alert('Thêm Vào Giỏ Thành Công');
+            toast.success('Thêm Vào Giỏ Thành Công');
+          } else {
+            alert('Vui Lòng Nhập Số Lượng');
+            toast.info('Vui Lòng Nhập Số Lượng');
+          }
+        }
+        else{
+          toast.warn('Vui Lòng Chọn Size');
+          // alert('Vui Lòng Chọn Size');
+        }
+      } else {
+        // Tương tự cho trường hợp khi size không phải '1'
         if (quantity) {
           const mycart = this.context.mycart;
           const index = mycart.findIndex(
-            (x) => x.product._id === product._id && x.size === this.state.selectedSize
+            (x) => x.sp._id === sp._id && x.size === '0'
           );
     
           if (index === -1) {
-            const newItem = { product: product, quantity: quantity, size: this.state.selectedSize };
+            const newItem = { product: sp, quantity: quantity, size: '0' };
             mycart.push(newItem);
           } else {
             mycart[index].quantity += quantity;
@@ -203,43 +258,76 @@ class ProductDetail extends Component {
     
           // Lưu giỏ hàng vào localStorage
           localStorage.setItem('mycart', JSON.stringify(mycart));
-          
-          // alert('Thêm Vào Giỏ Thành Công');
+    
           toast.success('Thêm Vào Giỏ Thành Công');
         } else {
-          alert('Vui Lòng Nhập Số Lượng');
+          toast.info('Vui Lòng Nhập Số Lượng');
+        }}
+    }
+    else{    
+      
+      const product = this.state.product;
+      const quantity = parseInt(this.state.txtQuantity);
+      if (product.category.size === '1') {
+        if(this.state.selectedSize){
+          if (quantity) {
+            const mycart = this.context.mycart;
+            const index = mycart.findIndex(
+              (x) => x.product._id === product._id && x.size === this.state.selectedSize
+            );
+      
+            if (index === -1) {
+              const newItem = { product: product, quantity: quantity, size: this.state.selectedSize };
+              mycart.push(newItem);
+            } else {
+              mycart[index].quantity += quantity;
+            }
+      
+            this.context.setMycart(mycart);
+      
+            // Lưu giỏ hàng vào localStorage
+            localStorage.setItem('mycart', JSON.stringify(mycart));
+            
+            // alert('Thêm Vào Giỏ Thành Công');
+            toast.success('Thêm Vào Giỏ Thành Công');
+          } else {
+            alert('Vui Lòng Nhập Số Lượng');
+            toast.info('Vui Lòng Nhập Số Lượng');
+          }
+        }
+        else{
+          toast.warn('Vui Lòng Chọn Size');
+          // alert('Vui Lòng Chọn Size');
+        }
+      } else {
+        // Tương tự cho trường hợp khi size không phải '1'
+        if (quantity) {
+          const mycart = this.context.mycart;
+          const index = mycart.findIndex(
+            (x) => x.product._id === product._id && x.size === '0'
+          );
+    
+          if (index === -1) {
+            const newItem = { product: product, quantity: quantity, size: '0' };
+            mycart.push(newItem);
+          } else {
+            mycart[index].quantity += quantity;
+          }
+    
+          this.context.setMycart(mycart);
+    
+          // Lưu giỏ hàng vào localStorage
+          localStorage.setItem('mycart', JSON.stringify(mycart));
+    
+          toast.success('Thêm Vào Giỏ Thành Công');
+        } else {
           toast.info('Vui Lòng Nhập Số Lượng');
         }
       }
-      else{
-        toast.warn('Vui Lòng Chọn Size');
-        // alert('Vui Lòng Chọn Size');
-      }
-    } else {
-      // Tương tự cho trường hợp khi size không phải '1'
-      if (quantity) {
-        const mycart = this.context.mycart;
-        const index = mycart.findIndex(
-          (x) => x.product._id === product._id && x.size === '0'
-        );
-  
-        if (index === -1) {
-          const newItem = { product: product, quantity: quantity, size: '0' };
-          mycart.push(newItem);
-        } else {
-          mycart[index].quantity += quantity;
-        }
-  
-        this.context.setMycart(mycart);
-  
-        // Lưu giỏ hàng vào localStorage
-        localStorage.setItem('mycart', JSON.stringify(mycart));
-  
-        toast.success('Thêm Vào Giỏ Thành Công');
-      } else {
-        toast.info('Vui Lòng Nhập Số Lượng');
-      }
     }
+   
+   
+    
   };
   
   componentDidMount() {

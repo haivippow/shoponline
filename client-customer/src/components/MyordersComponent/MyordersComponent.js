@@ -186,11 +186,23 @@ class Myorders extends Component {
   // apis
   apiGetOrdersByCustID(cid) {
     const config = { headers: { 'x-access-token': this.context.token } };
-    axios.get('/api/customer/orders/customer/' + cid, config).then((res) => {
-      const result = res.data;
-      this.setState({ orders: result });
-      console.log(result);
-    });
+    axios.get('/api/customer/orders/customer/' + cid, config)
+      .then((res) => {
+        const orders = res.data;
+  
+        // Sắp xếp đơn hàng theo thời gian tăng dần
+        const sortedOrders = orders.sort((a, b) => b.cdate-a.cdate);
+  
+        // Cập nhật trạng thái với mảng đơn hàng đã sắp xếp
+        this.setState({ orders: sortedOrders });
+  
+        // In thông tin đơn hàng từ mới đến cũ ra console
+        console.log('Orders from newest to oldest:', sortedOrders);
+      })
+      .catch((error) => {
+        console.error('Error fetching orders:', error);
+      });
   }
+  
 }
 export default withRouter(Myorders);
