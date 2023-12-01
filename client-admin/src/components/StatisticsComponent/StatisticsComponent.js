@@ -46,6 +46,10 @@ class Satistics extends Component {
           <h2 className={styles.title}>{thongke.orderCountCANCELED}</h2>
         </div>
         <div className={styles.formContainer2}>
+          <h2 className={styles.title}>Tổng ORDER HUỶ ĐƠN TỪ KH</h2>
+          <h2 className={styles.title}>{thongke.orderCountHUYDON}</h2>
+        </div>
+        <div className={styles.formContainer2}>
           <h2 className={styles.title}>Tổng Size </h2>
           <h2 className={styles.title}>{thongke.sizeCount}</h2>
         </div>

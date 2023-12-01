@@ -166,6 +166,7 @@ router.get('/thongke', JwtUtil.checkToken, async function(req, res) {
   const orderCountPENDING = await OrderDAO.selectStatus('PENDING');
   const orderCountAPPROVED = await OrderDAO.selectStatus('APPROVED');
   const orderCountCANCELED = await OrderDAO.selectStatus('CANCELED');
+  const orderCountHUYDON= await OrderDAO.selectStatus('HUỶ ĐƠN');
   const doanhthu = await OrderDAO.calculateApprovedRevenue('APPROVED');
   const productCount = await ProductDAO.selectByCount();
   const notiCount = await NotificationDAO.selectSLAll();
@@ -173,7 +174,7 @@ router.get('/thongke', JwtUtil.checkToken, async function(req, res) {
   const sliderCount = await SliderDAO.selectSLAll();
   
   res.json({ customersCount: customerCount, categoriesCount: categoryCount ,
-    orderCountPENDING:orderCountPENDING,orderCountAPPROVED:orderCountAPPROVED,orderCountCANCELED:orderCountCANCELED,
+    orderCountPENDING:orderCountPENDING,orderCountAPPROVED:orderCountAPPROVED,orderCountCANCELED:orderCountCANCELED,orderCountHUYDON:orderCountHUYDON,
     productCount:productCount,notiCount:notiCount,sizeCount:sizeCount,sliderCount:sliderCount,doanhthu:doanhthu,
   
   });

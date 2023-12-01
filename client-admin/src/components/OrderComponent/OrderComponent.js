@@ -15,12 +15,22 @@ class Order extends Component {
   }
   render() {
     const orders = this.state.orders.map((item) => {
+      let Straddress =
+      item.customer.address.sonha +
+        ' ' +
+        item.customer.address.phuong +
+        ' ' +
+        item.customer.address.quan +
+        ' ' +
+        item.customer.address.thanhpho;
+      
       return (
         <tr key={item._id} className="datatable" onClick={() => this.trItemClick(item)}>
           <td>{item._id}</td>
           <td>{new Date(item.cdate).toLocaleString()}</td>
           <td>{item.customer.name}</td>
           <td>{item.customer.phone}</td>
+          <td>{Straddress}</td>
           <td>{(item.total).toLocaleString('vi-VN')} VNĐ</td>
           <td>{item.status}</td>
           <td>
@@ -66,6 +76,7 @@ class Order extends Component {
                 <th>Ngày Đặt</th>
                 <th>Tên Khách Hàng</th>
                 <th>Số điện thoại</th>
+                <th>Địa Chỉ</th>
                 <th>Tổng</th>
                 <th>Trạng Thái</th>
                 <th>Action</th>
